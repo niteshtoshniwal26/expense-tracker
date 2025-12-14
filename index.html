@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Expense Tracker</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+
+</head>
+<body>
+
+<header>
+  <h2>💰 Expense Tracker</h2>
+  <nav>
+    <button onclick="showPage('add')">Add</button>
+    <button onclick="showPage('view')">View</button>
+    <button onclick="showPage('summary')">Summary</button>
+    <button onclick="showPage('control')">Control</button>
+  </nav>
+</header>
+
+<!-- ADD EXPENSE -->
+<section id="add" class="page">
+  <h3>Add Expense</h3>
+
+  <label>Date</label>
+  <input type="date" id="date"/>
+
+  <label>Amount</label>
+  <input type="number" id="amount"/>
+
+  <label>Details</label>
+  <input type="text" id="details"/>
+
+  <label>Category</label>
+  <select id="category"></select>
+
+  <label>Payment Type</label>
+  <select id="payment"></select>
+
+  <button onclick="addExpense()">Save Expense</button>
+</section>
+
+<!-- VIEW EXPENSES -->
+<section id="view" class="page hidden">
+  <h3>View Expenses</h3>
+
+  <div class="filters">
+    <input type="date" id="filterDate">
+    <select id="filterCategory"></select>
+    <select id="filterPayment"></select>
+    <button onclick="renderTable()">Filter</button>
+    <button onclick="exportCSV()">Export CSV</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Amount</th>
+        <th>Category</th>
+        <th>Payment</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody id="expenseTable"></tbody>
+  </table>
+</section>
+
+<!-- SUMMARY -->
+<section id="summary" class="page hidden">
+  <h3>Monthly Summary</h3>
+
+  <input type="month" id="summaryMonth" onchange="renderSummary()">
+  <div id="summaryData"></div>
+</section>
+
+<!-- CONTROL -->
+<section id="control" class="page hidden">
+  <h3>Control Panel</h3>
+
+  <h4>Categories</h4>
+  <input id="newCategory">
+  <button onclick="addCategory()">Add</button>
+  <ul id="categoryList"></ul>
+
+  <h4>Payment Types</h4>
+  <input id="newPayment">
+  <button onclick="addPayment()">Add</button>
+  <ul id="paymentList"></ul>
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>
