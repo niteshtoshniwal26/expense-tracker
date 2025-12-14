@@ -34,32 +34,34 @@ function addExpense() {
 
   localStorage.setItem("expenses", JSON.stringify(expenses));
 
-  // Clear form
+  // Reset form
   dateEl.valueAsDate = new Date();
   amountEl.value = "";
   detailsEl.value = "";
   categoryEl.value = "";
   paymentEl.value = "";
-  msg.innerText = "Expense saved";
+  msg.innerText = "Expense saved successfully";
 
   renderExpenses();
 }
 
-// Render Expenses with Filters
+// Render with search + filters
 function renderExpenses() {
   const list = document.getElementById("expense-list");
+  const searchText = document.getElementById("searchText").value.toLowerCase();
   const filterCategory = document.getElementById("filterCategory").value;
   const filterPayment = document.getElementById("filterPayment").value;
 
   list.innerHTML = "";
 
   expenses
+    .filter(e => !searchText || e.details.toLowerCase().includes(searchText))
     .filter(e => !filterCategory || e.category === filterCategory)
     .filter(e => !filterPayment || e.payment === filterPayment)
     .forEach(e => {
       const li = document.createElement("li");
       li.innerHTML = `
-        <strong>₹${e.amount}</strong> - ${e.details}<br/>
+        <strong>₹${e.amount}</strong> – ${e.details}<br/>
         ${e.date} | ${e.category} | ${e.payment}<br/>
         <button onclick="editExpense(${e.id})">Edit</button>
         <button onclick="deleteExpense(${e.id})">Delete</button>
@@ -68,16 +70,15 @@ function renderExpenses() {
     });
 }
 
-// Delete Expense
+// Delete
 function deleteExpense(id) {
   if (!confirm("Delete this expense?")) return;
-
   expenses = expenses.filter(e => e.id !== id);
   localStorage.setItem("expenses", JSON.stringify(expenses));
   renderExpenses();
 }
 
-// Edit Expense (simple re-fill form)
+// Edit (refill form)
 function editExpense(id) {
   const e = expenses.find(x => x.id === id);
   if (!e) return;
