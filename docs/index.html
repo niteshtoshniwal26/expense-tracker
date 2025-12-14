@@ -50,10 +50,31 @@
   </section>
 
   <!-- VIEW EXPENSES -->
-  <section id="view" class="tab hidden">
-    <h2>Expenses</h2>
-    <ul id="expense-list"></ul>
-  </section>
+  <!-- VIEW EXPENSES -->
+<section id="view" class="tab hidden">
+  <h2>Expenses</h2>
+
+  <!-- FILTERS -->
+  <label>Filter Category</label>
+  <select id="filterCategory" onchange="renderExpenses()">
+    <option value="">All</option>
+    <option>Food</option>
+    <option>Travel</option>
+    <option>Shopping</option>
+    <option>Rent</option>
+  </select>
+
+  <label>Filter Payment</label>
+  <select id="filterPayment" onchange="renderExpenses()">
+    <option value="">All</option>
+    <option>CC</option>
+    <option>ICICI</option>
+    <option>SBI</option>
+    <option>Cash</option>
+  </select>
+
+  <ul id="expense-list"></ul>
+</section>
 
   <script src="./app.js"></script>
 </body>
