@@ -1,99 +1,127 @@
 let expenses = JSON.parse(localStorage.getItem("expenses") || "[]");
 
-// Default date
 document.getElementById("date").valueAsDate = new Date();
 
-// Navigation
-function showTab(tabId) {
+function showTab(id) {
   document.querySelectorAll(".tab").forEach(t => t.classList.add("hidden"));
-  document.getElementById(tabId).classList.remove("hidden");
+  document.getElementById(id).classList.remove("hidden");
 }
 
-// Add Expense
 function addExpense() {
-  const dateEl = document.getElementById("date");
-  const amountEl = document.getElementById("amount");
-  const detailsEl = document.getElementById("details");
-  const categoryEl = document.getElementById("category");
-  const paymentEl = document.getElementById("payment");
-  const msg = document.getElementById("msg");
+  const e = {
+    id: Date.now(),
+    date: date.value,
+    amount: amount.value,
+    details: details.value,
+    category: category.value,
+    payment: payment.value
+  };
 
-  if (!dateEl.value || !amountEl.value || !detailsEl.value || !categoryEl.value || !paymentEl.value) {
-    msg.innerText = "All fields are required";
+  if (!Object.values(e).every(v => v)) {
+    msg.innerText = "All fields required";
     return;
   }
 
-  expenses.push({
-    id: Date.now(),
-    date: dateEl.value,
-    amount: amountEl.value,
-    details: detailsEl.value,
-    category: categoryEl.value,
-    payment: paymentEl.value
-  });
-
+  expenses.push(e);
   localStorage.setItem("expenses", JSON.stringify(expenses));
 
-  // Reset form
-  dateEl.valueAsDate = new Date();
-  amountEl.value = "";
-  detailsEl.value = "";
-  categoryEl.value = "";
-  paymentEl.value = "";
-  msg.innerText = "Expense saved successfully";
-
+  date.valueAsDate = new Date();
+  amount.value = details.value = category.value = payment.value = "";
+  msg.innerText = "Saved";
   renderExpenses();
 }
 
-// Render with search + filters
 function renderExpenses() {
-  const list = document.getElementById("expense-list");
-  const searchText = document.getElementById("searchText").value.toLowerCase();
-  const filterCategory = document.getElementById("filterCategory").value;
-  const filterPayment = document.getElementById("filterPayment").value;
+  const tbody = document.getElementById("expense-table");
+  const from = fromDate.value;
+  const to = toDate.value;
+  const search = searchText.value.toLowerCase();
 
-  list.innerHTML = "";
+  tbody.innerHTML = "";
 
   expenses
-    .filter(e => !searchText || e.details.toLowerCase().includes(searchText))
-    .filter(e => !filterCategory || e.category === filterCategory)
-    .filter(e => !filterPayment || e.payment === filterPayment)
+    .filter(e => (!from || e.date >= from) && (!to || e.date <= to))
+    .filter(e => !search || e.details.toLowerCase().includes(search))
     .forEach(e => {
-      const li = document.createElement("li");
-      li.innerHTML = `
-        <strong>₹${e.amount}</strong> – ${e.details}<br/>
-        ${e.date} | ${e.category} | ${e.payment}<br/>
-        <button onclick="editExpense(${e.id})">Edit</button>
-        <button onclick="deleteExpense(${e.id})">Delete</button>
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${e.id}</td>
+        <td>${e.date}</td>
+        <td>${e.amount}</td>
+        <td>${e.details}</td>
+        <td>${e.category}</td>
+        <td>${e.payment}</td>
+        <td>
+          <button onclick="editExpense(${e.id})">Edit</button>
+          <button onclick="deleteExpense(${e.id})">Del</button>
+        </td>
       `;
-      list.appendChild(li);
+      tbody.appendChild(tr);
     });
 }
 
-// Delete
 function deleteExpense(id) {
-  if (!confirm("Delete this expense?")) return;
+  if (!confirm("Delete?")) return;
   expenses = expenses.filter(e => e.id !== id);
   localStorage.setItem("expenses", JSON.stringify(expenses));
   renderExpenses();
 }
 
-// Edit (refill form)
 function editExpense(id) {
   const e = expenses.find(x => x.id === id);
   if (!e) return;
-
-  document.getElementById("date").value = e.date;
-  document.getElementById("amount").value = e.amount;
-  document.getElementById("details").value = e.details;
-  document.getElementById("category").value = e.category;
-  document.getElementById("payment").value = e.payment;
-
+  date.value = e.date;
+  amount.value = e.amount;
+  details.value = e.details;
+  category.value = e.category;
+  payment.value = e.payment;
   expenses = expenses.filter(x => x.id !== id);
   localStorage.setItem("expenses", JSON.stringify(expenses));
-
   showTab("add");
 }
 
-// Initial render
+function exportCSV() {
+  let csv = "ID,Date,Amount,Details,Category,Payment\n";
+  expenses.forEach(e => {
+    csv += `${e.id},${e.date},${e.amount},${e.details},${e.category},${e.payment}\n`;
+  });
+  download(csv, "expenses.csv");
+}
+
+function exportBackup() {
+  download(JSON.stringify(expenses), "expense-backup.json");
+}
+
+function importBackup(e) {
+  const r = new FileReader();
+  r.onload = () => {
+    expenses = JSON.parse(r.result);
+    localStorage.setItem("expenses", JSON.stringify(expenses));
+    renderExpenses();
+  };
+  r.readAsText(e.target.files[0]);
+}
+
+function download(data, name) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([data]));
+  a.download = name;
+  a.click();
+}
+
+function renderSummary() {
+  const month = summaryMonth.value;
+  let total = 0;
+  summaryList.innerHTML = "";
+
+  expenses.filter(e => e.date.startsWith(month)).forEach(e => {
+    total += Number(e.amount);
+    const li = document.createElement("li");
+    li.innerText = `${e.category} - ₹${e.amount}`;
+    summaryList.appendChild(li);
+  });
+
+  summaryTotal.innerText = `Total: ₹${total}`;
+}
+
 renderExpenses();
