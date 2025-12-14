@@ -1,15 +1,14 @@
 body {
-  font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
   margin: 0;
-  background: #f2f6fb;
-  color: #222;
+  font-family: -apple-system, BlinkMacSystemFont, Arial;
+  background: #f4f7fb;
 }
 
-/* TOP BAR */
+/* HEADER */
 .topbar {
-  background: #0a3d91;
+  background: linear-gradient(135deg, #0f62fe, #42a5f5);
   color: white;
-  padding: 12px 16px;
+  padding: 14px 16px;
 }
 
 .logo {
@@ -20,15 +19,10 @@ body {
 
 .logo-badge {
   background: white;
-  color: #0a3d91;
-  font-weight: bold;
+  color: #0f62fe;
   padding: 6px 10px;
-  border-radius: 6px;
-}
-
-.logo-text {
-  font-size: 18px;
-  font-weight: 600;
+  border-radius: 8px;
+  font-weight: bold;
 }
 
 /* NAV */
@@ -40,14 +34,14 @@ body {
 
 .nav button {
   flex: 1;
-  padding: 10px 0;
   border: none;
+  padding: 10px;
   background: white;
   font-size: 14px;
 }
 
 .nav button:hover {
-  background: #eaf1ff;
+  background: #eef3ff;
 }
 
 /* SECTIONS */
@@ -59,49 +53,39 @@ body {
   display: none;
 }
 
-h2 {
-  margin-top: 0;
-}
-
 /* FORM */
-label {
-  display: block;
-  margin-top: 12px;
-  font-weight: 500;
-}
-
 input, select, button {
   width: 100%;
   padding: 10px;
-  margin-top: 6px;
-  font-size: 16px;
+  margin-top: 8px;
 }
 
 button {
-  margin-top: 16px;
-  background: #0a3d91;
+  background: #0f62fe;
   color: white;
   border: none;
   border-radius: 6px;
 }
 
-/* LIST */
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
+/* TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
   background: white;
-  margin-top: 12px;
-  padding: 12px;
-  border-radius: 8px;
 }
 
-li button {
-  width: auto;
-  margin-right: 10px;
-  margin-top: 8px;
-  background: #eaf1ff;
-  color: #0a3d91;
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  font-size: 14px;
+}
+
+th {
+  background: #eef3ff;
+}
+
+.filters {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 10px;
 }
