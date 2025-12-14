@@ -22,6 +22,7 @@
   <button onclick="showTab('add')">➕<span>Add</span></button>
   <button onclick="showTab('view')">📋<span>View</span></button>
   <button onclick="showTab('summary')">📊<span>Summary</span></button>
+  <button onclick="showTab('control')">⚙️<span>Control</span></button>
 </nav>
 
 <!-- ADD -->
@@ -86,6 +87,23 @@
 
   <h3>By Payment Type</h3>
   <ul id="paymentTable"></ul>
+</section>
+<section id="control" class="tab hidden">
+  <h2>Control</h2>
+
+  <h3>Categories</h3>
+  <input type="text" id="newCategory" placeholder="Add category" />
+  <button onclick="addCategory()">Add</button>
+  <ul id="categoryList"></ul>
+
+  <h3>Payment Types</h3>
+  <input type="text" id="newPayment" placeholder="Add payment type" />
+  <button onclick="addPayment()">Add</button>
+  <ul id="paymentList"></ul>
+
+  <h3>Backup</h3>
+  <button onclick="exportBackup()">Export Backup</button>
+  <input type="file" onchange="importBackup(event)" />
 </section>
 
 <script src="./app.js"></script>
