@@ -12,8 +12,8 @@ document.getElementById("pin-screen").classList.remove("hidden");
 function unlockApp() {
   const input = document.getElementById("pin-input").value;
   if (btoa(input) === localStorage.getItem("pin")) {
-    document.getElementById("pin-screen").classList.add("hidden");
-    document.getElementById("app").classList.remove("hidden");
+    document.getElementById("pin-screen").style.display ="none"; 
+    document.getElementById("app").style.display ="block";
     init();
   } else {
     document.getElementById("pin-msg").innerText = "Incorrect PIN";
@@ -128,3 +128,4 @@ function download(data, file) {
   a.click();
 
 }
+
