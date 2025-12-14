@@ -1,4 +1,5 @@
 // STORAGE
+alert("app.js loaded");
 let expenses = JSON.parse(localStorage.getItem("expenses") || "[]");
 let categories = JSON.parse(localStorage.getItem("categories") || '["Food","Travel","Shopping","Rent"]');
 let payments = JSON.parse(localStorage.getItem("payments") || '["CC","ICICI","SBI","Cash"]');
@@ -126,5 +127,6 @@ function download(data, file) {
   a.click();
 
 }
+
 
 
