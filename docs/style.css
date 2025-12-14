@@ -1,43 +1,50 @@
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0;
+  background: #f5f5f5;
 }
 
-nav {
+.nav {
   display: flex;
-  justify-content: space-around;
   background: #222;
 }
 
-nav button {
+.nav button {
   flex: 1;
-  padding: 15px;
+  padding: 14px;
   color: white;
   background: none;
   border: none;
-}
-
-.tab {
-  padding: 15px;
-}
-
-input, select, button {
-  width: 100%;
-  margin: 8px 0;
-  padding: 10px;
   font-size: 16px;
 }
 
-button {
-  background: #007aff;
-  color: white;
-  border: none;
-  border-radius: 5px;
+.tab {
+  padding: 16px;
 }
 
 .hidden {
   display: none;
+}
+
+label {
+  display: block;
+  margin-top: 12px;
+  font-weight: bold;
+}
+
+input, select, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  font-size: 16px;
+}
+
+button {
+  margin-top: 16px;
+  background: #007aff;
+  color: white;
+  border: none;
+  border-radius: 4px;
 }
 
 ul {
@@ -46,6 +53,8 @@ ul {
 }
 
 li {
-  border-bottom: 1px solid #ddd;
-  padding: 8px 0;
+  background: white;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 4px;
 }
