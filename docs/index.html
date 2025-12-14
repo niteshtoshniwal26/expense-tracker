@@ -8,10 +8,19 @@
 </head>
 
 <body>
-  <!-- NAVIGATION -->
+
+  <!-- TOP NAV -->
+  <header class="topbar">
+    <div class="logo">
+      <span class="logo-badge">NT</span>
+      <span class="logo-text">Expense Tracker</span>
+    </div>
+  </header>
+
+  <!-- TAB NAV -->
   <nav class="nav">
-    <button onclick="showTab('add')">Add</button>
-    <button onclick="showTab('view')">View</button>
+    <button onclick="showTab('add')">➕<br/>Add</button>
+    <button onclick="showTab('view')">📄<br/>View</button>
   </nav>
 
   <!-- ADD EXPENSE -->
@@ -50,31 +59,32 @@
   </section>
 
   <!-- VIEW EXPENSES -->
-  <!-- VIEW EXPENSES -->
-<section id="view" class="tab hidden">
-  <h2>Expenses</h2>
+  <section id="view" class="tab hidden">
+    <h2>Expenses</h2>
 
-  <!-- FILTERS -->
-  <label>Filter Category</label>
-  <select id="filterCategory" onchange="renderExpenses()">
-    <option value="">All</option>
-    <option>Food</option>
-    <option>Travel</option>
-    <option>Shopping</option>
-    <option>Rent</option>
-  </select>
+    <label>Search</label>
+    <input type="text" id="searchText" placeholder="Search details..." oninput="renderExpenses()" />
 
-  <label>Filter Payment</label>
-  <select id="filterPayment" onchange="renderExpenses()">
-    <option value="">All</option>
-    <option>CC</option>
-    <option>ICICI</option>
-    <option>SBI</option>
-    <option>Cash</option>
-  </select>
+    <label>Filter Category</label>
+    <select id="filterCategory" onchange="renderExpenses()">
+      <option value="">All</option>
+      <option>Food</option>
+      <option>Travel</option>
+      <option>Shopping</option>
+      <option>Rent</option>
+    </select>
 
-  <ul id="expense-list"></ul>
-</section>
+    <label>Filter Payment</label>
+    <select id="filterPayment" onchange="renderExpenses()">
+      <option value="">All</option>
+      <option>CC</option>
+      <option>ICICI</option>
+      <option>SBI</option>
+      <option>Cash</option>
+    </select>
+
+    <ul id="expense-list"></ul>
+  </section>
 
   <script src="./app.js"></script>
 </body>
