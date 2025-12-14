@@ -10,7 +10,7 @@
 
 <body>
   <!-- PIN LOCK -->
-  <div id="pin-screen" class="screen hidden">
+  <div id="pin-screen" class="screen" style="position:fixed"; inset:0; background:white; z-index:999;">
     <h2>Enter PIN</h2>
     <input type="password" id="pin-input" placeholder="Enter PIN" />
     <button onclick="unlockApp()">Unlock</button>
@@ -18,7 +18,7 @@
   </div>
 
   <!-- APP -->
-  <div id="app" class="hidden">
+  <div id="app">
     <!-- NAV -->
     <nav>
       <button onclick="showTab('add')">Add</button>
@@ -84,4 +84,5 @@
   <!-- script src="app.js"></script> -->
 </body>
 </html>
+
 
