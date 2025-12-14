@@ -5,8 +5,7 @@ let payments = JSON.parse(localStorage.getItem("payments") || '["CC","ICICI","SB
 
 // PIN
 if (!localStorage.getItem("pin")) {
-  const pin = prompt("Set a new PIN");
-  localStorage.setItem("pin", btoa(pin));
+    localStorage.setItem("pin", btoa("2604"));
 }
 document.getElementById("pin-screen").classList.remove("hidden");
 
@@ -127,4 +126,5 @@ function download(data, file) {
   a.href = URL.createObjectURL(new Blob([data]));
   a.download = file;
   a.click();
+
 }
