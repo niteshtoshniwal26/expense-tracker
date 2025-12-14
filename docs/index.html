@@ -1,1 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Expense Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- link rel="manifest" href="manifest.json" /> -->
+  <link rel="stylesheet" href="style.css" />
+</head>
 
+<body>
+  <!-- PIN LOCK -->
+  <div id="pin-screen" 
+    style="position: fixed; 
+    inset: 0; 
+    background: white; 
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    ">
+    <h2>Enter PIN</h2>
+    <input type="password" id="pin-input" placeholder="Enter PIN" />
+    <button onclick="unlockApp()">Unlock</button>
+    <p id="pin-msg" style="color:red;"></p>
+  </div>
+
+  <!-- APP -->
+  <div id="app" style="display:none;">
+    <!-- NAV -->
+    <nav>
+      <button onclick="showTab('add')">Add</button>
+      <button onclick="showTab('view')">View</button>
+      <button onclick="showTab('summary')">Summary</button>
+      <button onclick="showTab('control')">Control</button>
+    </nav>
+
+    <!-- ADD EXPENSE -->
+    <section id="add" class="tab">
+      <h2>Add Expense</h2>
+      <input type="date" id="date" />
+      <input type="number" id="amount" placeholder="Amount" />
+      <input type="text" id="details" placeholder="Details" />
+      <select id="category"></select>
+      <select id="payment"></select>
+      <button onclick="addExpense()">Submit</button>
+      <p id="add-msg"></p>
+    </section>
+
+    <!-- VIEW -->
+    <section id="view" class="tab hidden">
+      <h2>Expenses</h2>
+      <input type="text" id="search" placeholder="Search details" oninput="renderExpenses()" />
+      <input type="date" id="fromDate" />
+      <input type="date" id="toDate" />
+      <select id="filterCategory" onchange="renderExpenses()"></select>
+      <select id="filterPayment" onchange="renderExpenses()"></select>
+      <button onclick="exportCSV()">Export CSV</button>
+      <ul id="expense-list"></ul>
+    </section>
+
+    <!-- SUMMARY -->
+    <section id="summary" class="tab hidden">
+      <h2>Summary</h2>
+      <input type="month" id="fromMonth" />
+      <input type="month" id="toMonth" />
+      <button onclick="renderSummary()">Apply</button>
+      <p id="total-spend"></p>
+      <ul id="summary-table"></ul>
+    </section>
+
+    <!-- CONTROL -->
+    <section id="control" class="tab hidden">
+      <h2>Control</h2>
+
+      <h3>Categories</h3>
+      <input type="text" id="newCategory" placeholder="Add category" />
+      <button onclick="addCategory()">Add</button>
+      <ul id="category-list"></ul>
+
+      <h3>Payment Types</h3>
+      <input type="text" id="newPayment" placeholder="Add payment type" />
+      <button onclick="addPayment()">Add</button>
+      <ul id="payment-list"></ul>
+
+      <h3>Backup</h3>
+      <button onclick="exportBackup()">Export Backup</button>
+      <input type="file" onchange="importBackup(event)" />
+    </section>
+  </div>
+
+  <script src="./app.js"></script> 
+</body>
+</html>
