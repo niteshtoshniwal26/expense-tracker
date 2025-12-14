@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Expense Tracker</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -12,16 +12,16 @@
 <!-- TOP BAR -->
 <header class="topbar">
   <div class="logo">
-    <span class="logo-badge">NT</span>
-    <span class="logo-text">Expense Tracker</span>
+    <div class="logo-badge">NT</div>
+    <div class="logo-text">Expense Tracker</div>
   </div>
 </header>
 
 <!-- NAV -->
 <nav class="nav">
-  <button onclick="showTab('add')">➕<br/>Add</button>
-  <button onclick="showTab('view')">📋<br/>View</button>
-  <button onclick="showTab('summary')">📊<br/>Summary</button>
+  <button onclick="showTab('add')">➕<span>Add</span></button>
+  <button onclick="showTab('view')">📋<span>View</span></button>
+  <button onclick="showTab('summary')">📊<span>Summary</span></button>
 </nav>
 
 <!-- ADD -->
@@ -48,7 +48,7 @@
     <option>Cash</option>
   </select>
 
-  <button onclick="addExpense()">Save</button>
+  <button class="primary" onclick="addExpense()">Save Expense</button>
   <p id="msg"></p>
 </section>
 
@@ -57,30 +57,35 @@
   <h2>Expenses</h2>
 
   <div class="filters">
-    <input type="date" id="fromDate" onchange="renderExpenses()" />
-    <input type="date" id="toDate" onchange="renderExpenses()" />
-    <input type="text" id="searchText" placeholder="Search..." oninput="renderExpenses()" />
-    <button onclick="exportCSV()">Export CSV</button>
-    <button onclick="exportBackup()">Backup</button>
-    <input type="file" onchange="importBackup(event)" />
+    <input type="date" id="fromDate" />
+    <input type="date" id="toDate" />
+    <input type="text" id="searchText" placeholder="Search details" />
+    <button onclick="renderExpenses()">Search</button>
+    <button onclick="exportCSV()">Export</button>
   </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th><th>Date</th><th>Amount</th><th>Details</th><th>Category</th><th>Payment</th><th>Actions</th>
-      </tr>
-    </thead>
-    <tbody id="expense-table"></tbody>
-  </table>
+  <div id="expense-list" class="list"></div>
 </section>
 
 <!-- SUMMARY -->
 <section id="summary" class="tab hidden">
-  <h2>Monthly Summary</h2>
-  <input type="month" id="summaryMonth" onchange="renderSummary()" />
-  <p id="summaryTotal"></p>
-  <ul id="summaryList"></ul>
+  <h2>Summary</h2>
+
+  <div class="filters">
+    <input type="month" id="fromMonth" />
+    <input type="month" id="toMonth" />
+    <button onclick="renderSummary()">Apply</button>
+  </div>
+
+  <div class="total-box" id="summaryTotal"></div>
+
+  <canvas id="categoryChart" height="200"></canvas>
+
+  <h3>By Category</h3>
+  <ul id="categoryTable"></ul>
+
+  <h3>By Payment Type</h3>
+  <ul id="paymentTable"></ul>
 </section>
 
 <script src="./app.js"></script>
