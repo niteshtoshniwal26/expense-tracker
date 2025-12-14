@@ -5,13 +5,11 @@ let payments = JSON.parse(localStorage.getItem("payments") || '["CC","ICICI","SB
 
 // PIN
 if (!localStorage.getItem("pin")) {
-    localStorage.setItem("pin", btoa("2604"));
+    localStorage.setItem("pin", "2604");
 }
-document.getElementById("pin-screen").classList.remove("hidden");
-
 function unlockApp() {
   const input = document.getElementById("pin-input").value;
-  if (btoa(input) === localStorage.getItem("pin")) {
+  if (input === localStorage.getItem("pin")) {
     document.getElementById("pin-screen").style.display ="none"; 
     document.getElementById("app").style.display ="block";
     init();
@@ -128,4 +126,5 @@ function download(data, file) {
   a.click();
 
 }
+
 
